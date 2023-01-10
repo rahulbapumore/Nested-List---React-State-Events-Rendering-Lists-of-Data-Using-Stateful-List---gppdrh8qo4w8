@@ -197,15 +197,15 @@ function App() {
       {
         states.map((state,index) => 
         {
-          return <li key={state.name} state={state.name} index={index} id={"state"+index} onClick={onclickhandler}>{state.name}
+          return <li key={state.name} state={state.name} index={index} id={"state"+(index+1)} onClick={onclickhandler}>{state.name}
             <ul>
               {
                 state.show?state.cities.map((city,index1) => {
-                return <li key={city.name} index={index} id={"city"+index1} index1={index1} city={city.name}>{city.name}
+                return <li key={city.name} index={index} id={"city"+(index1 +1)} index1={index1} city={city.name}>{city.name}
                   <ul>
                     {
                       city.show?city.towns.map((town,index2)=>{
-                        return <li key={town.name} id={"town"+index2}>{town.name}</li>
+                        return <li key={town.name} id={"town"+(index2+1)}>{town.name}</li>
                       }):""
                     }
                   </ul>

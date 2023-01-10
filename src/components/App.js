@@ -4,9 +4,11 @@ import "./../styles/App.css";
 // Do not alter the states const and values inside it.
 const states = [
   {
+    show: false,
     name: "Madhya Pradesh",
     cities: [
       {
+        show: false,
         name: "Indore",
         towns: [
           {
@@ -18,6 +20,7 @@ const states = [
         ],
       },
       {
+        show: false,
         name: "Bhopal",
         towns: [
           {
@@ -29,6 +32,7 @@ const states = [
         ],
       },
       {
+        show: false,
         name: "Gwalior",
         towns: [
           {
@@ -39,9 +43,11 @@ const states = [
     ],
   },
   {
+    show: false,
     name: "Jharkhand",
     cities: [
       {
+        show: false,
         name: "Dhanbad",
         towns: [
           {
@@ -53,6 +59,7 @@ const states = [
         ],
       },
       {
+        show: false,
         name: "Wasseypur",
         towns: [
           {
@@ -64,6 +71,7 @@ const states = [
         ],
       },
       {
+        show: false,
         name: "Mirzapur",
         towns: [
           {
@@ -77,9 +85,11 @@ const states = [
     ],
   },
   {
+    show: false,
     name: "Assam",
     cities: [
       {
+        show: false,
         name: "Guwhati",
         towns: [
           {
@@ -91,6 +101,7 @@ const states = [
         ],
       },
       {
+        show: false,
         name: "Jungle1",
         towns: [
           {
@@ -102,6 +113,7 @@ const states = [
         ],
       },
       {
+        show: false,
         name: "Tezpur",
         towns: [
           {
@@ -115,9 +127,11 @@ const states = [
     ],
   },
   {
+    show: false,
     name: "Bihar",
     cities: [
       {
+        show: false,
         name: "Patna",
         towns: [
           {
@@ -129,6 +143,7 @@ const states = [
         ],
       },
       {
+        show: false,
         name: "Gaya",
         towns: [
           {
@@ -140,6 +155,7 @@ const states = [
         ],
       },
       {
+        show: false,
         name: "Darbhanga",
         towns: [
           {
@@ -155,7 +171,52 @@ const states = [
 ];
 
 function App() {
-  return <div id="main"></div>;
+  const [obj,setObj] = useState(states);
+  const onclickhandler = (event) =>
+  {
+    if(event.target.getAttribute("state"))
+    {
+      let ind = parseInt(event.target.getAttribute("index"));
+      let newarr = [...obj];
+      newarr[ind].show = !newarr[ind].show;
+      setObj(newarr);
+    }
+    else if(event.target.getAttribute("city"))
+    {
+      let ind = parseInt(event.target.getAttribute("index"));
+      let ind1 = parseInt(event.target.getAttribute("index1"));
+      let newarr = [...obj];
+      //alert(ind+" "+ind1);
+      newarr[ind].cities[ind1].show = !newarr[ind].cities[ind1].show
+      setObj(newarr);
+    }
+
+  }
+  return <div id="main">
+    <ul>
+      {
+        states.map((state,index) => 
+        {
+          return <li key={state.name} state={state.name} index={index} id={"state"+index} onClick={onclickhandler}>{state.name}
+            <ul>
+              {
+                state.show?state.cities.map((city,index1) => {
+                return <li key={city.name} index={index} id={"city"+index1} index1={index1} city={city.name}>{city.name}
+                  <ul>
+                    {
+                      city.show?city.towns.map((town,index2)=>{
+                        return <li key={town.name} id={"town"+index2}>{town.name}</li>
+                      }):""
+                    }
+                  </ul>
+                </li>
+              }):""}
+            </ul>
+          </li>
+        })
+      }
+    </ul>
+  </div>;
 }
 
 export default App;
